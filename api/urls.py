@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 router=DefaultRouter()
 router.register('employee',views.EmployeeViewset,basename='employee')
+router.register('emp',views.EmployeesViewSet,basename='emp')
 
 urlpatterns=[
     path('person/',views.person),
@@ -16,3 +17,5 @@ urlpatterns=[
     path('house/<int:id>',views.HouseDetail.as_view()),
     path('',include(router.urls))
 ]
+
+

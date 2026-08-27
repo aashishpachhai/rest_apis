@@ -170,3 +170,6 @@ class EmployeeViewset(viewsets.ViewSet):
         return Response(status=200)
 
 #viewsets.ModelViewSet
+class EmployeesViewSet(viewsets.ModelViewSet):
+    serializer_class=EmployeeSerializer
+    queryset=Employee.objects.all()
