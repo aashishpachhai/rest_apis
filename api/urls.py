@@ -6,5 +6,7 @@ urlpatterns=[
     path('student/',views.Student.as_view()),
     path('student/<int:id>',views.StudentDetails.as_view()),
     path('car/',views.Cars.as_view()),
-     path('car/<int:id>',views.CarDetail.as_view())
+    path('car/<int:id>',views.CarDetail.as_view()),
+    path('house/',views.Houses.as_view()),
+    path('house/<int:id>',views.HouseDetail.as_view())
 ]

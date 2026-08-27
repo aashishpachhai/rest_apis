@@ -2,7 +2,8 @@ from django.shortcuts import render
 from person.models import Person
 from student.models import Students
 from car.models import Car
-from .serializers import PersonSerializer,StudentSerializer,CarSerializer
+from house.models import House
+from .serializers import PersonSerializer,StudentSerializer,CarSerializer,HouseSerializer
 from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.views import APIView
@@ -113,8 +114,20 @@ class CarDetail(mixins.RetrieveModelMixin,mixins.DestroyModelMixin,mixins.Update
     lookup_field='id'
     def get(self,request,id):
         return self.retrieve(request,pk=id)
-    def put(self,requset,id):
-        return self.update(requset,pk=id)
-    def delete(self,requset,id):
-        return self.destroy(requset,pk=id)
+    def put(self,request,id):
+        return self.update(request,pk=id)
+    def delete(self,request,id):
+        return self.destroy(request,pk=id)
 
+
+#Generics
+
+class Houses(generics.ListCreateAPIView):
+    queryset=House.objects.all()
+    serializer_class=HouseSerializer
+
+
+class HouseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset=House.objects.all()
+    serializer_class=HouseSerializer
+    lookup_field='id'
