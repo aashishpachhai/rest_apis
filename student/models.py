@@ -5,3 +5,6 @@ class Student(models.Model):
     name=models.CharField(max_length=100)
     address=models.CharField(max_length=100)
     age=models.CharField(default=18)
+
+    def __str__(self):
+        return self.name
