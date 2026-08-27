@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from person.models import Person
 from student.models import Students
 from car.models import Car
 from house.models import House
-from .serializers import PersonSerializer,StudentSerializer,CarSerializer,HouseSerializer
+from employee.models import Employee
+from .serializers import PersonSerializer,StudentSerializer,CarSerializer,HouseSerializer,EmployeeSerializer
 from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from rest_framework import mixins,generics
+from rest_framework import mixins,generics,viewsets
 from django.http import Http404
 
 # Create your views here.
@@ -131,3 +132,41 @@ class HouseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset=House.objects.all()
     serializer_class=HouseSerializer
     lookup_field='id'
+
+#viewSets.ViewSet
+
+class EmployeeViewset(viewsets.ViewSet):
+
+    def list(self,request):
+        queryset=Employee.objects.all()
+        serializer=EmployeeSerializer(queryset,many=True)
+        return Response(serializer.data,status=200)
+
+    def create(self,request):
+        querySet=EmployeeSerializer(data=request.data)
+        if not querySet.is_valid():
+            return Response(querySet.errors,status=400)
+        querySet.save()
+        return Response(querySet.data, status=201)
+
+    def retrieve(self,request,pk):
+        getObj= get_object_or_404(Employee, pk=pk)
+        ser=EmployeeSerializer(getObj)
+        return Response(ser.data,status=200)
+
+    def update(self,request,pk):
+         getObj= get_object_or_404(Employee, pk=pk)
+         ser=EmployeeSerializer(getObj,data=request.data)
+         if not ser.is_valid():
+             return Response(ser.errors,status=400)
+         ser.save()
+         return Response(ser.data,status=200)    
+        
+             
+
+    def delete(self,request,pk): #or detsroy method
+        getObj= get_object_or_404(Employee, pk=pk)
+        getObj.delete()
+        return Response(status=200)
+
+#viewsets.ModelViewSet

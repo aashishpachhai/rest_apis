@@ -3,7 +3,12 @@ from person.models import Person
 from student.models import Students
 from car.models import Car
 from house.models import House
+from employee.models import Employee
 
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Employee
+        fields='__all__'
 class HouseSerializer(serializers.ModelSerializer):
     class Meta:
         model=House
