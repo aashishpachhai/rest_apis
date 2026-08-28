@@ -5,6 +5,8 @@ from car.models import Car
 from house.models import House
 from employee.models import Employee
 from .serializers import PersonSerializer,StudentSerializer,CarSerializer,HouseSerializer,EmployeeSerializer
+from blogs.models import Blog,Comment
+from blogs.serializers import CommentSerializer,BlogSerializer
 from rest_framework.response import Response
 from rest_framework import status 
 from rest_framework.views import APIView
@@ -173,3 +175,23 @@ class EmployeeViewset(viewsets.ViewSet):
 class EmployeesViewSet(viewsets.ModelViewSet):
     serializer_class=EmployeeSerializer
     queryset=Employee.objects.all()
+
+
+
+class BlogsView(generics.ListCreateAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=BlogSerializer
+
+class CommentsView(generics.ListCreateAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+
+class BlogsViewDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=BlogSerializer
+    lookup_field='pk'
+
+class CommentsViewDetails(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=CommentSerializer
+    lookup_field='pk'

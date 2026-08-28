@@ -15,7 +15,11 @@ urlpatterns=[
     path('car/<int:id>',views.CarDetail.as_view()),
     path('house/',views.Houses.as_view()),
     path('house/<int:id>',views.HouseDetail.as_view()),
-    path('',include(router.urls))
+    path('',include(router.urls)),
+    path('blogs/',views.BlogsView.as_view()),
+    path('comments/',views.CommentsView.as_view()),
+    path('blogs/<int:pk>',views.BlogsViewDetails.as_view()),
+    path('comments/<int:pk>',views. CommentsViewDetails.as_view())
 ]
 
 
