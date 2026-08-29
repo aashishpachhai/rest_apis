@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'student',
     'api',
     'rest_framework',
-    'blogs'
+    'blogs',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -132,4 +133,11 @@ MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 1,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }

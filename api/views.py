@@ -13,7 +13,10 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework import mixins,generics,viewsets
 from django.http import Http404
-
+from django_filters.rest_framework import DjangoFilterBackend
+from .paginations import CustomPagination
+from .filters import EmployeeFilter
+from rest_framework.filters import SearchFilter,OrderingFilter
 # Create your views here.
 
 
@@ -175,6 +178,12 @@ class EmployeeViewset(viewsets.ViewSet):
 class EmployeesViewSet(viewsets.ModelViewSet):
     serializer_class=EmployeeSerializer
     queryset=Employee.objects.all()
+    pagination_class=CustomPagination
+    filterset_class=EmployeeFilter
+    filter_backends=[SearchFilter,OrderingFilter]
+    # filterset_fields=['name','address']
+    search_fields=['name']
+    ordering_fields=['age']
 
 
 
